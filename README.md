@@ -52,8 +52,8 @@
 npx skills add face2333/moleportal-skills --skill moleportal-weekly-mcp -y -g
 ```
 
-> 用 WorkBuddy 的话，装完可能落在 `~/.codex/skills/` 或 `~/.cursor/skills/`，
-> 需要再复制到 `~/.workbuddy/skills/` 才能生效。提示词里已经包含这一步。
+> skills CLI 固定把技能装在 `~/.agents/skills/`。而 WorkBuddy 读的是 `~/.workbuddy/skills/`，
+> 所以装完要再复制一份过去才能生效 —— 提示词里已包含这一步。
 
 ### 方式 C：手动放文件夹
 

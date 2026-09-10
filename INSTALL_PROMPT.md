@@ -12,11 +12,13 @@
 1. 运行：
    npx skills add face2333/moleportal-skills --skill moleportal-weekly-mcp -y -g
 
-2. 装完后用这条命令找到它装在哪：
-   find ~ -maxdepth 5 -type d -name "moleportal-weekly-mcp" 2>/dev/null
+2. skills CLI 固定装在 ~/.agents/skills/，确认一下：
+   ls -d ~/.agents/skills/moleportal-weekly-mcp
 
-   如果路径不是 ~/.workbuddy/skills/moleportal-weekly-mcp，
-   就把生成的 moleportal-weekly-mcp 整个目录复制到 ~/.workbuddy/skills/ 下。
+   然后复制一份到 WorkBuddy 的技能目录（WorkBuddy 只读 ~/.workbuddy/skills/）：
+   cp -R ~/.agents/skills/moleportal-weekly-mcp ~/.workbuddy/skills/
+
+   ⚠️ 不要用 find ~ 去找它 —— 全盘搜索要一两分钟，而且会撞权限错误。
 
 3. 最后告诉我三件事：
    - 技能最终装在哪

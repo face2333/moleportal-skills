@@ -202,14 +202,26 @@ json.dump(data, open("/tmp/weekly_data.json","w",encoding="utf-8"),
 ### 第 3 步 · 渲染
 
 ```bash
-SKILL_DIR=$(dirname "$(find "$HOME" -name SKILL.md -path "*moleportal-weekly-mcp*" 2>/dev/null | head -1)")
-python3 "$SKILL_DIR/scripts/render_report.py" \
+python3 "<SKILL_DIR>/scripts/render_report.py" \
     --data /tmp/weekly_data.json \
     --analysis /tmp/analysis.json \
     --output ~/Desktop/运营周报_2026-09-06.html
 ```
 
-> 技能可能装在不同目录（`~/.workbuddy/skills/`、`~/.codex/skills/`、`~/.cursor/skills/`…），上面第一条命令负责自动定位，不要写死路径。
+> **`<SKILL_DIR>` = 本 SKILL.md 所在的目录。** 加载本技能时你已经拿到了它的完整路径（形如 `/Users/xxx/.workbuddy/skills/moleportal-weekly-mcp`），直接填进去即可 —— 这是唯一可靠的定位方式。
+>
+> ⚠️ **不要用 `find ~` 全盘搜索来定位**，三个理由：
+> 1. **慢** —— 全盘搜索要一两分钟
+> 2. **漏** —— 会在 `Pictures` / `Library` 等目录撞权限错误，可能正好跳过目标目录
+> 3. **错** —— 机器上常有多份副本（不同 agent 各装一份），`head -1` 取到哪份全凭运气，可能用错版本的脚本
+>
+> 只有在确实拿不到自身路径时，才用这条有序兜底（快、无权限问题）：
+>
+> ```bash
+> for d in ~/.agents/skills ~/.workbuddy/skills ~/.codex/skills ~/.cursor/skills; do
+>   [ -d "$d/moleportal-weekly-mcp" ] && echo "$d/moleportal-weekly-mcp"
+> done
+> ```
 
 脚本仅用标准库，模板默认取 skill 包内的 `templates/运营周报看板_template.html`。
 
