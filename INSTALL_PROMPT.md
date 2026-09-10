@@ -27,10 +27,9 @@
 
 ---
 
-> ⚠️ **前提：对方机器上要有 Node.js ≥ 18**（也就是终端里敲 `npx` 有反应）。
-> 没有的话会报 `command not found: npx`。两种处理：
-> 1. 让对方去 [nodejs.org](https://nodejs.org) 装一个 LTS 版，装完重开终端即可
-> 2. 或者直接用下面的「备选 A · 直链 zip」，那条完全不依赖 Node
+> ⚠️ **两个已知坑**：
+> 1. 对方机器要有 Node.js ≥ 18，否则报 `command not found: npx` → 去 [nodejs.org](https://nodejs.org) 装 LTS，或直接用备选 A
+> 2. 国内网络下 npx 可能卡在下载环节几分钟无输出（npm 和 GitHub 都慢）→ 别干等，直接用备选 A，效果完全一样
 
 ## 精简版（对方会用终端时）
 
@@ -41,18 +40,28 @@
 
 ---
 
-## 备选 A · 直链 zip（不想依赖 GitHub 时用）
+## 备选 A · GitHub 打包直链（没装 Node / npx 卡死时首选）⭐
 
-把技能目录打包成 `moleportal-weekly-mcp.zip` 放到内网或对象存储，然后发这段：
+不需要 Node、不需要 skills CLI、不需要登录，直接下载仓库压缩包，效果与 npx 安装完全一致：
 
 ```
 帮我安装「运营周报数据」这个 skill：
-1. 下载 https://<你的地址>/moleportal-weekly-mcp.zip 到临时目录
-2. 解压，把里面的 moleportal-weekly-mcp 目录放到 ~/.workbuddy/skills/ 下
-3. 告诉我最终路径，并提醒我需要配置 MCP 地址和 Token（我去找管理员要）
+1. 下载 https://github.com/face2333/moleportal-skills/archive/refs/heads/main.zip
+   到临时目录并解压
+2. 把解压出来的 moleportal-skills-main/skills/moleportal-weekly-mcp 整个目录
+   复制到 ~/.workbuddy/skills/ 下
+3. 删掉临时文件
+4. 告诉我最终路径，并提醒我需要在 ~/.workbuddy/mcp.json 里配置 moleportal 的
+   MCP 地址和 Bearer Token（这两个我去找管理员要，你不要猜），改完要重启客户端
 ```
 
-> 这条路完全不需要 GitHub 账号，也不需要 skills CLI。缺点是更新要重新装一次。
+> 原理：所谓"安装"就是把同一组文件放进技能目录，走不走 skills CLI 无所谓。
+
+---
+
+## 备选 A2 · 内网直链 zip（GitHub 访问不稳的环境用）
+
+把技能目录打包成 `moleportal-weekly-mcp.zip` 放到内网或对象存储，提示词同上，把下载地址换掉即可。缺点是更新要重新发一次包。
 
 ---
 
